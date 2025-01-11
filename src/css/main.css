@@ -1,0 +1,126 @@
+:root {
+    --background-color: #fffef0;
+    --primary-text-color: #0f0f1c;
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    font-kerning: normal;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    --webkit-font-smoothing: subpixel-antialiased;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+blockquote,
+figure,
+h1,
+h2,
+h3,
+h4,
+p {
+    font-weight: 400;
+    margin: 0;
+    margin-top: 0px;
+    padding: 0;
+}
+
+img,
+picture,
+video,
+canvas,
+svg,
+pre {
+    display: block;
+    max-width: 100%;
+}
+
+figure svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentcolor;
+}
+
+a {
+    color: #015fac;
+}
+
+a:visited {
+    color: inherit;
+}
+
+/*****************/
+
+article {
+    width: 800px;
+    max-width: 100%;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    margin-block: 6rem 12rem;
+    display: grid;
+    gap: 0 48px;
+    grid-template-columns: [main-start] 550px [main-end sidebar-start] 200px [sidebar-end];
+    font-size: 1.2em;
+    line-height: 1.35;
+}
+
+article > * {
+    grid-column: main;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+article > aside {
+    grid-column: sidebar;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+    user-select: none;
+    margin-top: 0.5em;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1em;
+    position: relative;
+    font-family: "Helvetica", "Arial", sans-serif !important;
+}
+
+article > aside > p {
+    border-top: 0.5px solid rgba(0, 0, 0, 0.5);
+    padding-top: 0.5em;
+}
+
+article > aside > *::before {
+    content: attr(data-ref);
+    position: absolute;
+    transform: translateX(-2ch);
+    color: rgba(0, 0, 0, 1);
+}
+
+article sup {
+    font-size: 0.8rem;
+    padding-left: 0.1em;
+}

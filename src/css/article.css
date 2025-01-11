@@ -1,0 +1,9 @@
+article > p {
+    font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
+    text-align: justify;
+    font-size: 1.3rem;
+
+    margin-block: 1em;
+}
+
+/* Define Component Styles */

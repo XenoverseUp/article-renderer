@@ -1,0 +1,73 @@
+---
+import Layout from "@layouts/layout.astro";
+import BusinessCard from "@components/business-card.astro";
+import Spacer from "@components/spacer.astro";
+
+import "@css/home.css";
+
+const articles = Object.values(import.meta.glob("./articles/*.astro", { eager: true })) satisfies Array<{
+    file: string;
+    url: string;
+    title: string;
+    subtitle?: string;
+}>;
+---
+
+<Layout>
+    <script src="@scripts/home-animation.ts"></script>
+    <main>
+        <article>
+            <header>
+                <h1>
+                    Hey! I'm Can <strong>&mdash;</strong>
+                    <br />
+                    an <em>engineering student</em> based in Istanbul.
+                </h1>
+                <p>I like talking about stuff I have found interesting. So, here is my notepad.</p>
+            </header>
+
+            <div class="content">
+                <section>
+                    <h2>Here are the things I'm currently enthusiastic about</h2>
+                    <ol>
+                        <li>
+                            <h3>Progressive Rock &amp; Oriental Turkish Music</h3>
+                            <p>
+                                Not a common blend but progressive rock makes me appreciate skillful artists while I
+                                feel <em>deep</em> emotions through Turkish music.
+                            </p>
+                        </li>
+                        <li>
+                            <h3>Creative Programming</h3>
+                            <p>Really, I love her, too.</p>
+                        </li>
+                        <li>
+                            <h3>Maths &amp; Computer Graphics</h3>
+                            <p>You wouldn't believe but I love him, as well.</p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Writing</h2>
+                    <ol>
+                        {
+                            articles.map((item) => (
+                                <li>
+                                    <a href={item.url}> {item.title}</a>
+                                </li>
+                            ))
+                        }
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Contact</h2>
+                    <p>Well, here is my business card. Have it!</p>
+                    <Spacer space={1} />
+                    <BusinessCard name="Can Durmus" />
+                </section>
+            </div>
+        </article>
+    </main>
+</Layout>

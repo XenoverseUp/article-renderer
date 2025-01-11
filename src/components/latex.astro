@@ -1,0 +1,24 @@
+---
+import katex from "katex";
+
+interface Props {
+    formula: string;
+    display?: boolean;
+}
+
+const { formula, display = false } = Astro.props;
+const html = katex.renderToString(formula, {
+    throwOnError: false,
+    displayMode: display,
+    output: "htmlAndMathml",
+});
+---
+
+<span set:html={html} class="" />
+
+<style>
+    span {
+        font-size: 0.8em;
+        font-weight: 300;
+    }
+</style>

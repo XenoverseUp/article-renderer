@@ -1,0 +1,37 @@
+---
+import "@css/main.css";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css"
+        />
+        <link
+            href="https://fonts.cdnfonts.com/css/helvetica-neue-55?styles=16015,16016,16008,16020,16022,15981,15983,15985,15986,15987,15990,16012,16014,15991,15994,15996,30126,30124,30128,30134,15999,16010,30123,30130,30131,30135,15997,30133"
+            rel="stylesheet"
+        />
+
+        <title>Can Durmus</title>
+        <slot name="head" />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<style>
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>

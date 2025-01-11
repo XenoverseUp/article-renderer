@@ -1,0 +1,43 @@
+---
+interface Props {
+    space: 0 | 0.5 | 1 | 1.5 | 2 | 3 | 4 | 5;
+}
+
+const { space } = Astro.props;
+---
+
+<div aria-hidden class={`spacer-${space}`}></div>
+
+<style>
+    div {
+        height: 100%;
+    }
+
+    .spacer-0\.5 {
+        height: 0.125rem;
+    }
+
+    .spacer-1 {
+        height: 0.25rem;
+    }
+
+    .spacer-1\.5 {
+        height: 0.375rem;
+    }
+
+    .spacer-2 {
+        height: 0.5rem;
+    }
+
+    .spacer-3 {
+        height: 0.75rem;
+    }
+
+    .spacer-4 {
+        height: 1rem;
+    }
+
+    .spacer-5 {
+        height: 1.25rem;
+    }
+</style>
