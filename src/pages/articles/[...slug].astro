@@ -14,9 +14,9 @@ export function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const { default: Page, title } = await import(`../../articles/${slug}.astro`);
+const { default: Page, title, cover } = await import(`../../articles/${slug}.astro`);
 ---
 
-<ArticleLayout {title}>
+<ArticleLayout {title} slug={slug!} {cover}>
     <Page />
 </ArticleLayout>

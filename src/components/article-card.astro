@@ -42,11 +42,16 @@ try {
     !post ? (
         <Fragment />
     ) : (
-        <a data-astro-prefetch href={`/articles/${slug}`} class="card">
+        <a
+            data-astro-prefetch
+            href={`/articles/${slug}`}
+            class="card"
+            transition:name={`article-title-container-${slug}`}
+        >
             <div class="cover-container">
-                <Picture src={cover.default} alt="img" class="cover" />
+                <Picture src={cover.default} alt="img" class="cover" transition:name={`article-cover-${slug}`} />
             </div>
-            <div class="content">
+            <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h3>{post.title}</h3>
                 <p>12 January 2025</p>
             </div>

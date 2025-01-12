@@ -1,14 +1,46 @@
 ---
 interface Props {
     title: string;
+    slug: string;
+    cover: string;
     subtitle?: string;
     date?: Date;
 }
 
 import "@css/article.css";
-import Layout from "@layouts/layout.astro";
 
-const { title = "Article", date, subtitle } = Astro.props;
+import Layout from "@layouts/layout.astro";
+import { Picture } from "astro:assets";
+import type { only } from "node:test";
+
+const { title = "Article", slug, cover, date, subtitle } = Astro.props;
+
+let coverSource = null;
+
+try {
+    const coverType = cover.split(".").at(-1) as "png" | "jpg" | "jpeg" | "webp" | "avif";
+    const coverName: string = cover.split(".").at(0)!;
+
+    switch (coverType) {
+        case "png":
+            coverSource = await import(`../assets/article-cover/${coverName}.png`);
+            break;
+        case "jpg":
+            coverSource = await import(`../assets/article-cover/${coverName}.jpg`);
+            break;
+        case "jpeg":
+            coverSource = await import(`../assets/article-cover/${coverName}.jpeg`);
+            break;
+        case "webp":
+            coverSource = await import(`../assets/article-cover/${coverName}.webp`);
+            break;
+        case "avif":
+            coverSource = await import(`../assets/article-cover/${coverName}.avif`);
+            break;
+    }
+} catch (error) {
+    console.log(`Fuck! Unreachable code on the Article Layout. No cover named ${cover}.`);
+}
 ---
 
 <Layout>
@@ -24,33 +56,100 @@ const { title = "Article", date, subtitle } = Astro.props;
     </Fragment>
 
     <main>
+        <header transition:name={`article-title-container-${slug}`}>
+            <div class="links" transition:animate="initial">
+                <button onclick="history.back()" class="back adaptive-back"> &larr; Back </button>
+                <a href="/" class="back adaptive-back"> Can Durmus </a>
+            </div>
+
+            <div class="content" transition:name={`article-title-content-${slug}`}>
+                <h3>{title}</h3>
+                <p>12 January 2025</p>
+            </div>
+
+            <Picture src={coverSource.default} alt="img" class="cover" transition:name={`article-cover-${slug}`} />
+        </header>
         <article>
-            <header>
-                <h1>{title}</h1>
-            </header>
             <!-- articleContent -->
             <slot />
         </article>
     </main>
 </Layout>
 
-<style>
+<style lang="scss">
+    main {
+        width: 100%;
+        height: 100%;
+        display: flex;
 
-header {
-    margin-bottom: 2em;
-    padding-left: 1em;
-    padding-block: 0.5em;
-    border-left: 2px solid #5e0111;
-    background: linear-gradient(to right, rgba(250 0 0 / .1), transparent);
-}
+        header {
+            position: relative;
+            background: rgba(0 0 0 / 0.1);
+            overflow: hidden;
+            height: 100%;
+            width: 35vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
 
-header h1 {
-    font-family: "Helvetica Neue", Helvetica, Arial,, sans-serif;
-    font-size: calc(min(3em, 15vw));
-    line-height: 1.2;
-    font-weight: 400;
-    letter-spacing: -0.05ch;
-    color: #5e0111;
-}
+            .links {
+                z-index: 2;
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                right: 2rem;
+                display: flex;
+                gap: 1rem;
 
+                .back {
+                    background: var(--background-color);
+                    color: #5e0111;
+                    border: none;
+                    padding: 0;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            .content {
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                background: white;
+                margin-right: 4rem;
+                margin-bottom: 2em;
+                padding-left: 1em;
+                padding-block: 0.5em;
+                background: var(--background-color);
+
+                h3 {
+                    font-size: 1rem;
+                    margin-bottom: 0.5em;
+                    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                    font-size: calc(min(3em, 15vw));
+                    line-height: 1.2;
+                    font-weight: 400;
+                    letter-spacing: -0.05ch;
+                    color: #5e0111;
+                }
+
+                p {
+                    font-size: 0.7rem;
+                }
+            }
+
+            picture {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+
+                .cover {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
 </style>
