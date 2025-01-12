@@ -12,9 +12,29 @@ let cover = null;
 
 try {
     post = await import(`../articles/${slug}.astro`);
-    cover = await import(`../assets/article-cover/${post.cover}`);
+
+    const coverType: "png" | "jpg" | "jpeg" | "webp" | "avif" = post.cover.split(".").at(-1);
+    const coverName: string = post.cover.split(".").at(0);
+
+    switch (coverType) {
+        case "png":
+            cover = await import(`../assets/article-cover/${coverName}.png`);
+            break;
+        case "jpg":
+            cover = await import(`../assets/article-cover/${coverName}.jpg`);
+            break;
+        case "jpeg":
+            cover = await import(`../assets/article-cover/${coverName}.jpeg`);
+            break;
+        case "webp":
+            cover = await import(`../assets/article-cover/${coverName}.webp`);
+            break;
+        case "avif":
+            cover = await import(`../assets/article-cover/${coverName}.avif`);
+            break;
+    }
 } catch (error) {
-    console.error(`Article Card slug "${slug}" is not found. This should be an unreachable error!`);
+    console.error(`Article Card slug or cover "${slug}" is not found. This should be an unreachable error!`);
 }
 ---
 
