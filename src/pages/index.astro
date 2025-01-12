@@ -53,7 +53,10 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
                         {
                             articles.map((item) => (
                                 <li>
-                                    <a href={`/articles/${item.file.split("/").at(-1)?.split(".").at(0)}`}>
+                                    <a
+                                        data-astro-prefetch
+                                        href={`/articles/${item.file.split("/").at(-1)?.split(".").at(0)}`}
+                                    >
                                         {item.title}
                                     </a>
                                 </li>
