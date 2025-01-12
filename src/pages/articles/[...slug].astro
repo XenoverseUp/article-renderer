@@ -1,0 +1,22 @@
+---
+import ArticleLayout from "@layouts/article-layout.astro";
+
+export function getStaticPaths() {
+    const articles = Object.values(import.meta.glob("../../articles/*.astro", { eager: true })) satisfies Array<{
+        file: string;
+        title: string;
+        subtitle?: string;
+    }>;
+
+    return articles.map((article) => ({
+        params: { slug: article.file.split("/").at(-1)?.split(".").at(0) },
+    }));
+}
+
+const { slug } = Astro.params;
+const { default: Page, title } = await import(`../../articles/${slug}.astro`);
+---
+
+<ArticleLayout {title}>
+    <Page />
+</ArticleLayout>

@@ -5,9 +5,8 @@ import Spacer from "@components/spacer.astro";
 
 import "@css/home.css";
 
-const articles = Object.values(import.meta.glob("./articles/*.astro", { eager: true })) satisfies Array<{
+const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: true })) satisfies Array<{
     file: string;
-    url: string;
     title: string;
     subtitle?: string;
 }>;
@@ -54,7 +53,9 @@ const articles = Object.values(import.meta.glob("./articles/*.astro", { eager: t
                         {
                             articles.map((item) => (
                                 <li>
-                                    <a href={item.url}> {item.title}</a>
+                                    <a href={`/articles/${item.file.split("/").at(-1)?.split(".").at(0)}`}>
+                                        {item.title}
+                                    </a>
                                 </li>
                             ))
                         }
