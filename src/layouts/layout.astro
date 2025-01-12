@@ -1,5 +1,6 @@
 ---
 import "@css/main.css";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -21,8 +22,8 @@ import "@css/main.css";
 
         <title>Can Durmus</title>
         <slot name="head" />
-    </head>
-    <body>
+        <ClientRouter />
+    </head><body>
         <slot />
     </body>
 </html>

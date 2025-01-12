@@ -2,12 +2,14 @@
 import Layout from "@layouts/layout.astro";
 import BusinessCard from "@components/business-card.astro";
 import Spacer from "@components/spacer.astro";
+import ArticleCard from "@components/article-card.astro";
 
 import "@css/home.css";
 
 const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: true })) satisfies Array<{
     file: string;
     title: string;
+    cover: string;
     subtitle?: string;
 }>;
 ---
@@ -49,7 +51,16 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
 
                 <section>
                     <h2>Writing</h2>
-                    <ol>
+
+                    <div class="article-bank">
+                        {
+                            articles.map((item) => (
+                                <ArticleCard slug={item.file.split("/").at(-1)?.split(".").at(0) ?? ""} />
+                            ))
+                        }
+                    </div>
+
+                    <!-- <ol>
                         {
                             articles.map((item) => (
                                 <li>
@@ -62,7 +73,7 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
                                 </li>
                             ))
                         }
-                    </ol>
+                    </ol> -->
                 </section>
 
                 <section>

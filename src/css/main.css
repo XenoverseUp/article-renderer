@@ -18,6 +18,7 @@ html {
     scroll-behavior: smooth;
     text-rendering: optimizeLegibility;
     --webkit-font-smoothing: subpixel-antialiased;
+    scroll-behavior: auto;
 }
 
 body {
@@ -69,6 +70,18 @@ a {
 
 a:visited {
     color: inherit;
+}
+
+/*****************/
+
+.article-bank {
+    --bank-gap: 1rem;
+
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    gap: var(--bank-gap);
 }
 
 /*****************/
