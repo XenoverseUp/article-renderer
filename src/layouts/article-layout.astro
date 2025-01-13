@@ -3,6 +3,10 @@ interface Props {
     title: string;
     slug: string;
     cover: string;
+    coverAttribution?: {
+        name: string;
+        url: string;
+    };
     subtitle?: string;
     date?: Date;
 }
@@ -11,9 +15,8 @@ import "@css/article.css";
 
 import Layout from "@layouts/layout.astro";
 import { Picture } from "astro:assets";
-import type { only } from "node:test";
 
-const { title = "Article", slug, cover, date, subtitle } = Astro.props;
+const { title = "Article", slug, cover, date, subtitle, coverAttribution } = Astro.props;
 
 let coverSource = null;
 
@@ -64,12 +67,30 @@ try {
 
             <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h3>{title}</h3>
-                <p>12 January 2025</p>
+                {
+                    date && (
+                        <p>
+                            {date.getDate()} {date.toLocaleString("default", { month: "long" })} {date.getFullYear()}
+                        </p>
+                    )
+                }
+
+                {
+                    coverAttribution && (
+                        <p>
+                            Cover image by{" "}
+                            <a href={coverAttribution.url} target="_blank">
+                                {coverAttribution.name}
+                            </a>
+                        </p>
+                    )
+                }
             </div>
 
             <Picture src={coverSource.default} alt="img" class="cover" transition:name={`article-cover-${slug}`} />
         </header>
         <article>
+            {subtitle && <p class="subtitle">{subtitle}</p>}
             <!-- articleContent -->
             <slot />
         </article>
@@ -81,13 +102,14 @@ try {
         width: 100%;
         height: 100%;
         display: flex;
+        overflow: hidden;
 
         header {
             position: relative;
-            background: rgba(0 0 0 / 0.1);
             overflow: hidden;
             height: 100%;
             width: 35vw;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -103,7 +125,7 @@ try {
 
                 .back {
                     background: var(--background-color);
-                    color: #5e0111;
+                    color: rgb(var(--accent-color));
                     border: none;
                     padding: 0;
                     text-decoration: underline;
@@ -119,22 +141,23 @@ try {
                 margin-right: 4rem;
                 margin-bottom: 2em;
                 padding-left: 1em;
-                padding-block: 0.5em;
+                padding-top: 0.5em;
+                padding-bottom: 0.5em;
                 background: var(--background-color);
 
                 h3 {
-                    font-size: 1rem;
-                    margin-bottom: 0.5em;
+                    margin-bottom: 0.25em;
                     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
                     font-size: calc(min(3em, 15vw));
                     line-height: 1.2;
                     font-weight: 400;
                     letter-spacing: -0.05ch;
-                    color: #5e0111;
+                    color: rgb(var(--accent-color));
                 }
 
                 p {
                     font-size: 0.7rem;
+                    margin-bottom: 0.25em;
                 }
             }
 
@@ -151,5 +174,13 @@ try {
                 }
             }
         }
+    }
+
+    .subtitle {
+        font-family: "Computer Modern Typewriter", sans-serif;
+        font-style: italic;
+        color: rgb(var(--accent-color));
+
+        padding-bottom: 1rem;
     }
 </style>

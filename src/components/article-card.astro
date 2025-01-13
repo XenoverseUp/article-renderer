@@ -3,9 +3,10 @@ import { Picture } from "astro:assets";
 
 interface Props {
     slug: string;
+    date?: Date;
 }
 
-const { slug } = Astro.props;
+const { slug, date } = Astro.props;
 
 let post = null;
 let cover = null;
@@ -43,7 +44,7 @@ try {
         <Fragment />
     ) : (
         <a
-            data-astro-prefetch
+            data-astro-prefetch="viewport"
             href={`/articles/${slug}`}
             class="card"
             transition:name={`article-title-container-${slug}`}
@@ -53,7 +54,13 @@ try {
             </div>
             <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h3>{post.title}</h3>
-                <p>12 January 2025</p>
+                {date && (
+                    <p>
+                        <span>{date.getDate()}</span>
+                        <span>{date.toLocaleString("default", { month: "long" })}</span>
+                        <span>{date.getFullYear()}</span>
+                    </p>
+                )}
             </div>
         </a>
     )
@@ -95,5 +102,8 @@ try {
 
     p {
         font-size: 0.7rem;
+
+        display: flex;
+        gap: 0.25em;
     }
 </style>

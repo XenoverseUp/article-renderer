@@ -22,7 +22,7 @@ import { ClientRouter } from "astro:transitions";
 
         <title>Can Durmus</title>
         <slot name="head" />
-        <ClientRouter />
+        <ClientRouter fallback="none" />
     </head><body>
         <slot />
     </body>

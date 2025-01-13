@@ -1,7 +1,15 @@
 ---
 import Latex from "@components/latex.astro";
+
 export const title = "Dead Internet Is Pretty Common, Actually!";
+export const subtitle =
+    "Next thing I know, I was on my computer searching for answers. I am a caveman and I need answers! Right?";
 export const cover = "dead-internet-theory.webp";
+export const coverAttribution = {
+    name: "Jo Yesol",
+    url: "https://www.google.com",
+};
+export const date = new Date("2022-09-25");
 ---
 
 <p>
@@ -11,8 +19,7 @@ export const cover = "dead-internet-theory.webp";
     different. In the most cases, there are not even a symbolic differentiation of the equations.
 </p>
 <aside>
-    <p data-ref="1">The main reason for compilers to be that popular is the introduction of C++ in 1972.</p>
-    <p data-ref="2">Differentiation is a fancy one gurll!</p>
+    <p>The main reason for compilers to be that popular is the introduction of C++ in 1972.</p>
 </aside>
 <p>
     The next thing I know was I was on my computer, searching for answers. I am a caveman and I need answers! Right?
@@ -24,4 +31,13 @@ export const cover = "dead-internet-theory.webp";
     The next thing I know was I was on my computer, searching for answers. I am a caveman and I need answers! Right?
     Well, the clouds disappeared after a bunch of articles. They're just parsers with predefined chain rules evaluated
     recursively.
+</p>
+
+<Latex formula="y = \\int_x^\\infty e^x \\sin^2\\left( \\frac{x}{2} \\right) dx" display />
+
+<p>
+    One day I woke up and suddenly this question appeared. How would tools like Wolfram Alpha differentiate<sup>1</sup>
+    seemingly impossible equations like <Latex formula="\\int_x^3 e^x dx" />? I knew how to implement a Riemann sum
+    calculator or use Newton approximation to differentiate equations using limits but symbolic differentiation is
+    different. In the most cases, there are not even a symbolic differentiation of the equations.
 </p>

@@ -1,3 +1,22 @@
+article {
+    width: 750px;
+    max-width: 100%;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    margin-block: 6rem 12rem;
+    display: grid;
+    gap: 0 48px;
+    grid-template-columns: [main-start] 550px [main-end sidebar-start] 200px [sidebar-end];
+    font-size: 1.2em;
+    line-height: 1.35;
+}
+
+article > * {
+    grid-column: main;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
 article > header {
     margin-block: 10rem 2rem;
     max-width: 100%;

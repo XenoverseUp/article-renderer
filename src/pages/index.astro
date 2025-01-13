@@ -10,6 +10,7 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
     file: string;
     title: string;
     cover: string;
+    date?: Date;
     subtitle?: string;
 }>;
 ---
@@ -55,25 +56,13 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
                     <div class="article-bank">
                         {
                             articles.map((item) => (
-                                <ArticleCard slug={item.file.split("/").at(-1)?.split(".").at(0) ?? ""} />
+                                <ArticleCard
+                                    slug={item.file.split("/").at(-1)?.split(".").at(0) ?? ""}
+                                    date={item.date}
+                                />
                             ))
                         }
                     </div>
-
-                    <!-- <ol>
-                        {
-                            articles.map((item) => (
-                                <li>
-                                    <a
-                                        data-astro-prefetch
-                                        href={`/articles/${item.file.split("/").at(-1)?.split(".").at(0)}`}
-                                    >
-                                        {item.title}
-                                    </a>
-                                </li>
-                            ))
-                        }
-                    </ol> -->
                 </section>
 
                 <section>

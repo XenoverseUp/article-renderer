@@ -1,9 +1,65 @@
+html,
+body {
+    overflow: hidden;
+}
+
+article {
+    width: 100%;
+    padding-inline: 6rem;
+    padding-block: 6rem;
+    display: grid;
+    gap: 0 48px;
+    grid-template-columns: [main-start] 1fr [main-end sidebar-start] 200px [sidebar-end];
+    font-size: 1.2em;
+    line-height: 1.35;
+    overscroll-behavior-y: contain;
+    overflow-y: auto;
+    height: fit-content;
+    max-height: 100%;
+}
+
+article > * {
+    grid-column: main;
+    word-wrap: break-word;
+    hyphens: auto;
+    height: fit-content;
+}
+
+article > aside {
+    grid-column: sidebar;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.7);
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    position: relative;
+    font-family: "Helvetica", "Arial", sans-serif !important;
+}
+
+article > aside > p {
+    border-top: 0.5px solid rgba(var(--accent-color), 0.2);
+    padding-top: 0.5em;
+}
+
+article > aside > *::before {
+    content: attr(data-ref);
+    position: absolute;
+    transform: translateX(-2ch);
+    color: rgba(0, 0, 0, 1);
+}
+
+article sup {
+    font-size: 0.8rem;
+    padding-left: 0.1em;
+}
+
 article > p {
     font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
     text-align: justify;
-    font-size: 1.3rem;
-
-    margin-block: 1em;
+    font-size: 1.2rem;
+    margin-bottom: 1em;
 }
 
 /* Define Component Styles */
