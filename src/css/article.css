@@ -62,4 +62,22 @@ article > p {
     margin-bottom: 1em;
 }
 
+article > p:not(.subtitle):first-of-type:first-letter,
+article > p.dropcap:first-letter {
+    color: rgb(var(--accent-color-light));
+    font-size: calc(3 * 1.2rem * 1.35);
+    line-height: 0.9;
+    float: left;
+    margin-top: 0.1em;
+    margin-right: 0.1em;
+}
+
 /* Define Component Styles */
+
+article code {
+    font-family: "Computer Modern Typewriter", monospace;
+    border-radius: 0.2em;
+    padding: 0.05em 0.3em;
+    background: rgba(var(--accent-color), 0.05);
+    color: rgb(var(--accent-color));
+}

@@ -60,7 +60,7 @@ try {
 
     <main>
         <header transition:name={`article-title-container-${slug}`}>
-            <div class="links" transition:animate="initial">
+            <div class="links" transition:animate="fade">
                 <button onclick="history.back()" class="back adaptive-back"> &larr; Back </button>
                 <a href="/" class="back adaptive-back"> Can Durmus </a>
             </div>
@@ -90,7 +90,7 @@ try {
             <Picture src={coverSource.default} alt="img" class="cover" transition:name={`article-cover-${slug}`} />
         </header>
         <article>
-            {subtitle && <p class="subtitle">{subtitle}</p>}
+            {subtitle && <h2 class="subtitle">{subtitle}</h2>}
             <!-- articleContent -->
             <slot />
         </article>
@@ -177,10 +177,12 @@ try {
     }
 
     .subtitle {
-        font-family: "Computer Modern Typewriter", sans-serif;
+        font-family: "Computer Modern Typewriter", monospace;
         font-style: italic;
         color: rgb(var(--accent-color));
-
-        padding-bottom: 1rem;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(var(--accent-color), 0.2);
+        padding-bottom: 0.5rem;
+        margin-bottom: 2rem;
     }
 </style>
