@@ -1,4 +1,4 @@
-import Latex from "./latex.astro";
+import Latex from "./Latex.astro";
 
 const components = { Latex };
 
