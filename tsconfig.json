@@ -3,6 +3,7 @@
   "include": [".astro/types.d.ts", "src/components/shared/global.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
+    "verbatimModuleSyntax": true,
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
