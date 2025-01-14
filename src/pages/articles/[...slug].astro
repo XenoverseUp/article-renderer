@@ -4,15 +4,42 @@ import ArticleLayout from "@layouts/article-layout.astro";
 export function getStaticPaths() {
     const articles = Object.values(import.meta.glob("../../articles/*.astro", { eager: true })) satisfies Array<{
         file: string;
+        title: string;
+        subtitle?: string;
+        cover: string;
+        coverAttribution?: {
+            name: string;
+            url: string;
+        };
+        date: Date;
     }>;
 
     return articles.map((article) => ({
         params: { slug: article.file.split("/").at(-1)?.split(".").at(0) },
+        props: {
+            title: article.title,
+            subtitle: article.subtitle,
+            cover: article.cover,
+            coverAttribution: article.coverAttribution,
+            date: article.date,
+        },
     }));
 }
 
+interface Props {
+    title: string;
+    subtitle?: string;
+    cover: string;
+    coverAttribution?: {
+        name: string;
+        url: string;
+    };
+    date: Date;
+}
+
 const { slug } = Astro.params;
-const { default: Page, title, cover, coverAttribution, date, subtitle } = await import(`../../articles/${slug}.astro`);
+const Page = (await import(`../../articles/${slug}.astro`)).default;
+const { title, cover, coverAttribution, date, subtitle } = Astro.props;
 ---
 
 <ArticleLayout {title} slug={slug!} {cover} {date} {subtitle} {coverAttribution}>

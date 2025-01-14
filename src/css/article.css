@@ -5,11 +5,12 @@ body {
 
 article {
     width: 100%;
-    padding-inline: 6rem;
+    padding-left: max(6vw, 1.5rem);
+    padding-right: max(4vw, 1rem);
     padding-block: 6rem;
     display: grid;
     gap: 0 48px;
-    grid-template-columns: [main-start] 1fr [main-end sidebar-start] 200px [sidebar-end];
+    grid-template-columns: [main-start] 3fr [main-end sidebar-start] 1fr [sidebar-end];
     font-size: 1.2em;
     line-height: 1.35;
     overscroll-behavior-y: contain;
@@ -75,7 +76,7 @@ article > p.dropcap:first-letter {
 /* Define Component Styles */
 
 article code {
-    font-family: "Computer Modern Typewriter", monospace;
+    font-family: "Computer Modern Typewriter", courier, monospace;
     border-radius: 0.2em;
     padding: 0.05em 0.3em;
     background: rgba(var(--accent-color), 0.05);

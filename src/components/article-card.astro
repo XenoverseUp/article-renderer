@@ -50,16 +50,16 @@ try {
             transition:name={`article-title-container-${slug}`}
         >
             <div class="cover-container">
-                <Picture src={cover.default} alt="img" class="cover" transition:name={`article-cover-${slug}`} />
+                <Picture src={cover.default} alt="img" class="cover" />
             </div>
             <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h3>{post.title}</h3>
                 {date && (
-                    <p>
+                    <time datetime={date.toISOString()}>
                         <span>{date.getDate()}</span>
                         <span>{date.toLocaleString("default", { month: "long" })}</span>
                         <span>{date.getFullYear()}</span>
-                    </p>
+                    </time>
                 )}
             </div>
         </a>
@@ -99,7 +99,7 @@ try {
         margin-bottom: 0.5em;
     }
 
-    p {
+    time {
         font-size: 0.7rem;
 
         display: flex;
