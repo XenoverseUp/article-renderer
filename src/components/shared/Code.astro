@@ -1,0 +1,16 @@
+---
+import type { ComponentProps } from "astro/types";
+import { Code as SyntaxHighlighter } from "astro:components";
+
+interface BaseProps {
+    lang: Pick<ComponentProps<typeof SyntaxHighlighter>, "lang">;
+    title?: string;
+    description?: string;
+}
+
+export type Props =
+    | (BaseProps & { file: true; url: string; code?: never })
+    | (BaseProps & { file: false; code: string; url?: never });
+---
+
+<!-- <SyntaxHighlighter lang={} /> -->
