@@ -56,13 +56,6 @@ article sup {
     padding-left: 0.1em;
 }
 
-article > p {
-    font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
-    text-align: justify;
-    font-size: 1.2rem;
-    margin-bottom: 1em;
-}
-
 article > p:not(.subtitle):first-of-type:first-letter,
 article > p.dropcap:first-letter {
     color: rgb(var(--accent-color-light));
@@ -75,10 +68,32 @@ article > p.dropcap:first-letter {
 
 /* Define Component Styles */
 
+article > p {
+    font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
+    text-align: justify;
+    font-size: 1em;
+}
+
+article p:has(+ p),
+article p:has(+ aside + p),
+article p:has(+ aside + aside + p) {
+    margin-bottom: 1em;
+}
+
 article code {
     font-family: "Computer Modern Typewriter", courier, monospace;
     border-radius: 0.2em;
     padding: 0.05em 0.3em;
     background: rgba(var(--accent-color), 0.05);
+    color: rgb(var(--accent-color));
+}
+
+article > h2 {
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     color: rgb(var(--accent-color));
 }

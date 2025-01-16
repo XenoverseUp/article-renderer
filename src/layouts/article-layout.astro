@@ -14,7 +14,7 @@ interface Props {
 import "@css/article.css";
 
 import Layout from "@layouts/layout.astro";
-import { Picture } from "astro:assets";
+import { getImage, Image, Picture } from "astro:assets";
 
 const { title = "Article", slug, cover, date, subtitle, coverAttribution } = Astro.props;
 
@@ -54,7 +54,6 @@ try {
             integrity="sha384-WsHMgfkABRyG494OmuiNmkAOk8nhO1qE+Y6wns6v+EoNoTNxrWxYpl5ZYWFOLPCM"
             crossorigin="anonymous"
         />
-        <link rel="preload" href={coverSource.default} as="image" />
         <title>{title}</title>
     </Fragment>
 
@@ -65,8 +64,10 @@ try {
                 <a href="/" class="back adaptive-back"> Can Durmus </a>
             </div>
 
+            <Picture src={coverSource.default} alt="img" class="cover" loading="eager" />
+
             <div class="content" transition:name={`article-title-content-${slug}`}>
-                <h3>{title}</h3>
+                <h1>{title}</h1>
                 {
                     date && (
                         <p>
@@ -86,11 +87,9 @@ try {
                     )
                 }
             </div>
-
-            <Picture src={coverSource.default} alt="img" class="cover" loading="eager" />
         </header>
         <article>
-            {subtitle && <h2 class="subtitle">{subtitle}</h2>}
+            {subtitle && <div class="subtitle">{subtitle}</div>}
             <!-- articleContent -->
             <slot />
         </article>
@@ -112,8 +111,8 @@ try {
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            border-right: 1px solid black;
+            justify-content: space-between;
+            border-right: 1px solid rgb(var(--accent-color));
 
             .links {
                 z-index: 2;
@@ -138,15 +137,16 @@ try {
                 z-index: 2;
                 display: flex;
                 flex-direction: column;
-                background: white;
-                margin-right: 4rem;
-                margin-bottom: 2em;
+                border-top: 1px solid rgb(var(--accent-color));
+
+                /* margin-right: 4rem;
+                margin-bottom: 2em; */
                 padding-left: 1em;
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
                 background: var(--background-color);
 
-                h3 {
+                h1 {
                     margin-bottom: 0.25em;
                     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
                     font-size: calc(min(3em, 15vw));
@@ -163,15 +163,16 @@ try {
             }
 
             picture {
-                position: absolute;
-                inset: 0;
+                /* position: absolute; */
+                /* inset: 0; */
                 width: 100%;
                 height: 100%;
+                flex-grow: 1;
 
                 .cover {
+                    object-fit: cover;
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
                 }
             }
         }
@@ -184,6 +185,6 @@ try {
         font-size: 1rem;
         border-bottom: 1px solid rgba(var(--accent-color), 0.2);
         padding-bottom: 0.5rem;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5em;
     }
 </style>
