@@ -14,7 +14,7 @@ interface Props {
 import "@css/article.css";
 
 import Layout from "@layouts/layout.astro";
-import { getImage, Image, Picture } from "astro:assets";
+import { Picture } from "astro:assets";
 
 const { title = "Article", slug, cover, date, subtitle, coverAttribution } = Astro.props;
 
@@ -26,19 +26,19 @@ try {
 
     switch (coverType) {
         case "png":
-            coverSource = await import(`../assets/article-cover/${coverName}.png`);
+            coverSource = await import(`../articles/cover/${coverName}.png`);
             break;
         case "jpg":
-            coverSource = await import(`../assets/article-cover/${coverName}.jpg`);
+            coverSource = await import(`../articles/cover/${coverName}.jpg`);
             break;
         case "jpeg":
-            coverSource = await import(`../assets/article-cover/${coverName}.jpeg`);
+            coverSource = await import(`../articles/cover/${coverName}.jpeg`);
             break;
         case "webp":
-            coverSource = await import(`../assets/article-cover/${coverName}.webp`);
+            coverSource = await import(`../articles/cover/${coverName}.webp`);
             break;
         case "avif":
-            coverSource = await import(`../assets/article-cover/${coverName}.avif`);
+            coverSource = await import(`../articles/cover/${coverName}.avif`);
             break;
     }
 } catch (error) {

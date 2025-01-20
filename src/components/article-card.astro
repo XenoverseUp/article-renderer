@@ -12,26 +12,26 @@ let post = null;
 let cover = null;
 
 try {
-    post = await import(`../articles/${slug}.astro`);
+    post = await import(`../articles/content/${slug}.astro`);
 
     const coverType: "png" | "jpg" | "jpeg" | "webp" | "avif" = post.cover.split(".").at(-1);
     const coverName: string = post.cover.split(".").at(0);
 
     switch (coverType) {
         case "png":
-            cover = await import(`../assets/article-cover/${coverName}.png`);
+            cover = await import(`../articles/cover/${coverName}.png`);
             break;
         case "jpg":
-            cover = await import(`../assets/article-cover/${coverName}.jpg`);
+            cover = await import(`../articles/cover/${coverName}.jpg`);
             break;
         case "jpeg":
-            cover = await import(`../assets/article-cover/${coverName}.jpeg`);
+            cover = await import(`../articles/cover/${coverName}.jpeg`);
             break;
         case "webp":
-            cover = await import(`../assets/article-cover/${coverName}.webp`);
+            cover = await import(`../articles/cover/${coverName}.webp`);
             break;
         case "avif":
-            cover = await import(`../assets/article-cover/${coverName}.avif`);
+            cover = await import(`../articles/cover/${coverName}.avif`);
             break;
     }
 } catch (error) {

@@ -1,4 +1,5 @@
 ---
+import FontProvider from "@components/font-provider.astro";
 import "@css/main.css";
 import { ClientRouter } from "astro:transitions";
 ---
@@ -14,6 +15,12 @@ import { ClientRouter } from "astro:transitions";
             rel="stylesheet"
             type="text/css"
             href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css"
+        />
+
+        <FontProvider
+            fonts={{
+                "Computer Modern Bright": new Set([100]),
+            }}
         />
 
         <title>Can Durmus</title>

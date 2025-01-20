@@ -4,7 +4,9 @@ import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 import "@components/shared/index.ts";
 
 export function getStaticPaths() {
-    const articles = Object.values(import.meta.glob("../../articles/*.astro", { eager: true })) satisfies Array<{
+    const articles = Object.values(
+        import.meta.glob("../../articles/content/*.astro", { eager: true }),
+    ) satisfies Array<{
         file: string;
         title: string;
         subtitle?: string;

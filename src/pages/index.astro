@@ -6,7 +6,7 @@ import ArticleCard from "@components/article-card.astro";
 
 import "@css/home.css";
 
-const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: true })) satisfies Array<{
+const articles = Object.values(import.meta.glob("../articles/content/*.astro", { eager: true })) satisfies Array<{
     file: string;
     title: string;
     cover: string;
@@ -68,7 +68,7 @@ const articles = Object.values(import.meta.glob("../articles/*.astro", { eager: 
                     <h2>Contact</h2>
                     <p>Well, here is my business card. Have it!</p>
                     <Spacer space={1} />
-                    <BusinessCard name="Can Durmus" />
+                    <BusinessCard />
                 </section>
             </div>
         </article>

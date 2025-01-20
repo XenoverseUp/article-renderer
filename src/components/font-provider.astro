@@ -1,0 +1,16 @@
+---
+interface Props {
+    fonts?: Partial<
+        Record<
+            "Helvetica Neue" | `Computer Modern ${"Serif" | "Sans" | "Bright" | "Concrete" | "Typewriter"}`,
+            Set<100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900>
+        >
+    >;
+}
+
+const { fonts } = Astro.props;
+---
+
+<Fragment>
+    {Object.keys(fonts!).map((font) => <link rel="preload" href={`/css/font/light.css`} as="style" />)}
+</Fragment>
