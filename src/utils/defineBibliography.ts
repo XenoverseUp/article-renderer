@@ -12,13 +12,16 @@ class Bibliography {
   entries: BibEntry[] = [];
   sortingStrategy: SortingStrategy = SortingStrategy.YearDescending;
 
-  constructor(entries: BibEntry[], sortingStrategy: SortingStrategy) {}
+  constructor(entries: BibEntry[], sortingStrategy: SortingStrategy) {
+    this.entries = entries;
+    this.sortingStrategy = sortingStrategy;
+  }
 
   add(entry: BibEntry) {
     return this;
   }
 
-  getIndex(name: string): Nullable<BibEntry> {
+  getIndex(name: string): Nullable<number> {
     return null;
   }
 }
