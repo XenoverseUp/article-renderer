@@ -12,7 +12,6 @@ const post = await import(`../articles/content/${slug}.astro`);
 
 const image = await (async () => {
     const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}");
-
     const coverEntry = Object.entries(coverImages).find(([path]) => path.endsWith(`/${post.cover}`));
 
     if (!coverEntry) throw new Error(`Article Layout Error: No cover image named "${post.cover}" found.`);
@@ -50,16 +49,12 @@ const image = await (async () => {
 
 <style>
     .card {
-        aspect-ratio: 1 / 1;
-        width: calc(50% - var(--bank-gap) / 2);
-
         display: flex;
         flex-direction: column;
         text-decoration: none;
     }
 
     .cover-container {
-        aspect-ratio: 1 / 1;
         width: 100%;
         background: rgba(0 0 0 / 0.1);
         overflow: hidden;
@@ -70,9 +65,15 @@ const image = await (async () => {
         width: 100%;
         height: 100%;
         object-fit: cover;
+
+        @media screen and (max-width: 480px) {
+            aspect-ratio: 16 / 9;
+        }
     }
 
     .content {
+        display: flex;
+        flex-direction: column;
         padding: 0.5rem;
     }
 

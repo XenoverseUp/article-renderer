@@ -74,17 +74,3 @@ a {
 a:visited {
     color: inherit;
 }
-
-/*****************/
-
-.article-bank {
-    --bank-gap: 1rem;
-
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-
-    gap: var(--bank-gap);
-}
-
-/*****************/

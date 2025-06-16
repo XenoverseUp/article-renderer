@@ -10,7 +10,7 @@ const articles = Object.values(import.meta.glob("../articles/content/*.astro", {
     file: string;
     title: string;
     cover: string;
-    date?: Date;
+    date: Date;
     subtitle?: string;
 }>;
 ---
@@ -22,20 +22,21 @@ const articles = Object.values(import.meta.glob("../articles/content/*.astro", {
                 <h1>
                     Hey! I'm Can <strong>&mdash;</strong>
                     <br />
-                    an <em>engineering student</em> based in Istanbul.
+                    a <em>software engineer</em> based in Istanbul.
                 </h1>
                 <p>I like talking about stuff I have found interesting. So, here is my notepad.</p>
             </header>
 
             <div class="content">
                 <section>
-                    <h2>Here are the things I'm currently enthusiastic about</h2>
+                    <h2>Here are the projects I'm currently proud of</h2>
                     <ol>
                         <li>
                             <h3>Progressive Rock &amp; Oriental Turkish Music</h3>
                             <p>
-                                Not a common blend but progressive rock makes me appreciate skillful artists while I
-                                feel <em>deep</em> emotions through Turkish music.
+                                Not a common blend but progressive rock makes me appreciate skillful artists while I feel <em
+                                    >deep</em
+                                > emotions through Turkish music.
                             </p>
                         </li>
                         <li>
@@ -50,18 +51,29 @@ const articles = Object.values(import.meta.glob("../articles/content/*.astro", {
                 </section>
 
                 <section>
-                    <h2>Writing</h2>
+                    <h2>And here are my posts</h2>
 
-                    <div class="article-bank">
+                    <ol>
                         {
-                            articles.map((item) => (
-                                <ArticleCard
-                                    slug={item.file.split("/").at(-1)?.split(".").at(0) ?? ""}
-                                    date={item.date}
-                                />
-                            ))
+                            articles
+                                .sort((a, b) => (a.date < b.date ? 1 : -1))
+                                .map((item) => {
+                                    const slug = item.file.split("/").at(-1)?.split(".").at(0) ?? "";
+                                    return (
+                                        <a
+                                            data-astro-prefetch="viewport"
+                                            href={`/articles/${slug}`}
+                                            class="card"
+                                            transition:name={`article-title-container-${slug}`}
+                                        >
+                                            <li>
+                                                <h3>{item.title}</h3>
+                                            </li>
+                                        </a>
+                                    );
+                                })
                         }
-                    </div>
+                    </ol>
                 </section>
 
                 <section>
