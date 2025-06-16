@@ -12,38 +12,19 @@ interface Props {
 }
 
 import "@css/article.css";
-
 import Layout from "@layouts/layout.astro";
 import { Picture } from "astro:assets";
 
 const { title = "Article", slug, cover, date, subtitle, coverAttribution } = Astro.props;
 
-let coverSource = null;
+const image = await (async () => {
+    const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}");
+    const coverEntry = Object.entries(coverImages).find(([path]) => path.endsWith(`/${cover}`));
 
-try {
-    const coverType = cover.split(".").at(-1) as "png" | "jpg" | "jpeg" | "webp" | "avif";
-    const coverName: string = cover.split(".").at(0)!;
+    if (!coverEntry) throw new Error(`Article Layout Error: No cover image named "${cover}" found.`);
 
-    switch (coverType) {
-        case "png":
-            coverSource = await import(`../articles/cover/${coverName}.png`);
-            break;
-        case "jpg":
-            coverSource = await import(`../articles/cover/${coverName}.jpg`);
-            break;
-        case "jpeg":
-            coverSource = await import(`../articles/cover/${coverName}.jpeg`);
-            break;
-        case "webp":
-            coverSource = await import(`../articles/cover/${coverName}.webp`);
-            break;
-        case "avif":
-            coverSource = await import(`../articles/cover/${coverName}.avif`);
-            break;
-    }
-} catch (error) {
-    console.log(`Fuck! Unreachable code on the Article Layout. No cover named ${cover}.`);
-}
+    return (await coverEntry[1]()).default;
+})();
 ---
 
 <Layout>
@@ -64,7 +45,7 @@ try {
                 <a href="/" class="back adaptive-back"> Can Durmus </a>
             </div>
 
-            <Picture src={coverSource.default} alt="img" class="cover" loading="eager" />
+            <Picture src={image!} alt={title} class="cover" loading="eager" />
 
             <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h1>{title}</h1>
@@ -168,6 +149,7 @@ try {
                 width: 100%;
                 height: 100%;
                 flex-grow: 1;
+                background-color: rgba(0, 0, 0, 0.1);
 
                 .cover {
                     object-fit: cover;

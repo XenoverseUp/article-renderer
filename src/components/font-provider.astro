@@ -11,6 +11,4 @@ interface Props {
 const { fonts } = Astro.props;
 ---
 
-<Fragment>
-    {Object.keys(fonts!).map((font) => <link rel="preload" href={`/css/font/light.css`} as="style" />)}
-</Fragment>
+{Object.keys(fonts!).map((font) => <link rel="preload" href={`/css/font/light.css`} as="style" />)}

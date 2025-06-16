@@ -8,35 +8,17 @@ interface Props {
 
 const { slug, date } = Astro.props;
 
-let post = null;
-let cover = null;
+const post = await import(`../articles/content/${slug}.astro`);
 
-try {
-    post = await import(`../articles/content/${slug}.astro`);
+const image = await (async () => {
+    const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}");
 
-    const coverType: "png" | "jpg" | "jpeg" | "webp" | "avif" = post.cover.split(".").at(-1);
-    const coverName: string = post.cover.split(".").at(0);
+    const coverEntry = Object.entries(coverImages).find(([path]) => path.endsWith(`/${post.cover}`));
 
-    switch (coverType) {
-        case "png":
-            cover = await import(`../articles/cover/${coverName}.png`);
-            break;
-        case "jpg":
-            cover = await import(`../articles/cover/${coverName}.jpg`);
-            break;
-        case "jpeg":
-            cover = await import(`../articles/cover/${coverName}.jpeg`);
-            break;
-        case "webp":
-            cover = await import(`../articles/cover/${coverName}.webp`);
-            break;
-        case "avif":
-            cover = await import(`../articles/cover/${coverName}.avif`);
-            break;
-    }
-} catch (error) {
-    console.error(`Article Card slug or cover "${slug}" is not found. This should be an unreachable error!`);
-}
+    if (!coverEntry) throw new Error(`Article Layout Error: No cover image named "${post.cover}" found.`);
+
+    return (await coverEntry[1]()).default;
+})();
 ---
 
 {
@@ -50,7 +32,7 @@ try {
             transition:name={`article-title-container-${slug}`}
         >
             <div class="cover-container">
-                <Picture src={cover.default} alt="img" class="cover" />
+                <Picture src={image} alt={post.title} class="cover" />
             </div>
             <div class="content" transition:name={`article-title-content-${slug}`}>
                 <h3>{post.title}</h3>

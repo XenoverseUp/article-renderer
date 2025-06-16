@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
-    "astro": "^5.1.5",
+    "astro": "^5.9.3",
     "katex": "^0.16.19",
     "sass": "^1.83.1",
     "split-type": "^0.3.4"
