@@ -15,7 +15,7 @@ import "@css/article.css";
 import Layout from "@layouts/layout.astro";
 import { Picture } from "astro:assets";
 
-const { title = "Article", slug, cover, date, subtitle, coverAttribution } = Astro.props;
+const { title = "Article", cover, date, subtitle, coverAttribution } = Astro.props;
 
 const image = await (async () => {
     const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}");
@@ -39,15 +39,15 @@ const image = await (async () => {
     </Fragment>
 
     <main>
-        <header transition:name={`article-title-container-${slug}`}>
-            <div class="links" transition:animate="fade">
+        <header>
+            <div class="links">
                 <button onclick="history.back()" class="back adaptive-back"> &larr; Back </button>
                 <a href="/" class="back adaptive-back"> Can Durmus </a>
             </div>
 
             <Picture src={image!} alt={title} class="cover" loading="eager" />
 
-            <div class="content" transition:name={`article-title-content-${slug}`}>
+            <div class="content">
                 <h1>{title}</h1>
                 {
                     date && (
@@ -79,21 +79,35 @@ const image = await (async () => {
 
 <style lang="scss">
     main {
-        width: 100%;
-        height: 100%;
         display: flex;
-        overflow: hidden;
+
+        @media screen and (max-width: 1024px) {
+            flex-direction: column;
+        }
 
         header {
-            position: relative;
+            position: sticky;
+            top: 0;
             overflow: hidden;
-            height: 100%;
+            height: 100dvh;
             width: max(25rem, 35vw);
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             border-right: 1px solid rgb(var(--accent-color));
+
+            @media screen and (max-width: 1024px) {
+                width: 100%;
+                height: 32rem;
+                position: relative;
+                border-right: unset;
+                border-bottom: 1px solid rgb(var(--accent-color));
+            }
+
+            @media screen and (max-width: 640px) {
+                height: 100dvh;
+            }
 
             .links {
                 z-index: 2;
@@ -118,14 +132,28 @@ const image = await (async () => {
                 z-index: 2;
                 display: flex;
                 flex-direction: column;
-                border-top: 1px solid rgb(var(--accent-color));
+                border: 1px solid rgb(var(--accent-color));
+                border-left: 0;
 
-                /* margin-right: 4rem;
-                margin-bottom: 2em; */
-                padding-left: 1em;
+                margin-right: 4rem;
+                margin-bottom: 2em;
+                padding-inline: 1em;
                 padding-top: 0.5em;
                 padding-bottom: 0.5em;
                 background: var(--background-color);
+
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                @media screen and (max-width: 1024px) {
+                    padding-inline: 2em;
+                }
+
+                @media screen and (max-width: 640px) {
+                    padding-inline: 1em;
+                }
 
                 h1 {
                     margin-bottom: 0.25em;

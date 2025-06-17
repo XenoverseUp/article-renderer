@@ -1,8 +1,3 @@
-html,
-body {
-    overflow: hidden;
-}
-
 article {
     width: 100%;
     padding-left: max(6vw, 1.5rem);
@@ -13,10 +8,7 @@ article {
     grid-template-columns: [main-start] 3fr [main-end sidebar-start] 1fr [sidebar-end];
     font-size: 1.2em;
     line-height: 1.35;
-    overscroll-behavior-y: contain;
-    overflow-y: auto;
     height: fit-content;
-    max-height: 100%;
 }
 
 article > * {
@@ -64,6 +56,31 @@ article > p.dropcap:first-letter {
     float: left;
     margin-top: 0.1em;
     margin-right: 0.15em;
+}
+
+@media screen and (max-width: 640px) {
+    article {
+        grid-template-columns: 1fr;
+        padding-inline: 1.5em;
+        padding-top: 3rem;
+    }
+
+    article > *,
+    article > aside {
+        grid-column: 1 / -1;
+    }
+
+    article > aside::before {
+        position: static;
+        transform: none;
+        display: inline;
+        margin-right: 0.5ch;
+    }
+
+    article > aside {
+        font-size: 0.75rem;
+        padding-block: 0 2em;
+    }
 }
 
 /* Define Component Styles */
