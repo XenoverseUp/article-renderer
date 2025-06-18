@@ -51,11 +51,12 @@ article sup {
 article > p:not(.subtitle):first-of-type:first-letter,
 article > p.dropcap:first-letter {
     color: rgb(var(--accent-color-light));
-    font-size: calc(3 * 1.2rem * 1.35);
-    line-height: 0.9;
+    font-size: 4.5rem;
+    line-height: 0.89;
     float: left;
-    margin-top: 0.1em;
-    margin-right: 0.15em;
+    padding-top: 0.1em;
+    margin-right: 0.2em;
+    initial-letter: 3;
 }
 
 @media screen and (max-width: 640px) {
