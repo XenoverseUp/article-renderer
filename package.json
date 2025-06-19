@@ -7,7 +7,7 @@
     "build": "astro build",
     "astro": "astro",
     "preview": "npx astro build && npx wrangler pages dev ./dist",
-    "deploy": "npx astro build && npx wrangler pages deploy ./dist"
+    "deploy": "npx astro build && npx wrangler pages deploy ./dist --commit-dirty=true"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.4",

@@ -40,12 +40,17 @@ article > aside > *::before {
     content: attr(data-ref);
     position: absolute;
     transform: translateX(-2ch);
-    color: rgba(0, 0, 0, 1);
+    color: rgba(var(--accent-color), 0.8);
+    font-weight: 600;
 }
 
 article sup {
     font-size: 0.8rem;
     padding-left: 0.1em;
+    color: rgba(var(--accent-color), 0.8);
+    font-weight: 600;
+    font-family: "Helvetica", "Arial", sans-serif !important;
+    user-select: none;
 }
 
 article > p:not(.subtitle):first-of-type:first-letter,
@@ -90,12 +95,7 @@ article > p {
     font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
     text-align: justify;
     font-size: 1em;
-}
-
-article p:has(+ p),
-article p:has(+ aside + p),
-article p:has(+ aside + aside + p) {
-    margin-bottom: 1em;
+    margin-bottom: 0.75em;
 }
 
 article code {

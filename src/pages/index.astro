@@ -1,9 +1,5 @@
 ---
 import Layout from "@layouts/layout.astro";
-import BusinessCard from "@components/business-card.astro";
-import Spacer from "@components/spacer.astro";
-
-import "@css/home.css";
 
 const articles = Object.values(import.meta.glob("../articles/content/*.astro", { eager: true })) satisfies Array<{
     file: string;
@@ -23,35 +19,16 @@ const articles = Object.values(import.meta.glob("../articles/content/*.astro", {
                     <br />
                     a <em>software engineer</em> based in Istanbul.
                 </h1>
-                <p>I like talking about stuff I have found interesting. So, here is my notepad.</p>
+                <div class="links">
+                    <a href="https://github.com/XenoverseUp" target="_blank">github</a>
+                    <a href="https://www.linkedin.com/in/can-durmuss/" target="_blank">linkedin</a>
+                    <a href="/">resume</a>
+                </div>
+                <p>I like talking about stuff I have found interesting. So, here are my blog posts.</p>
             </header>
 
             <div class="content">
                 <section>
-                    <h2>Here are the projects I'm currently proud of</h2>
-                    <ol>
-                        <li>
-                            <h3>Progressive Rock &amp; Oriental Turkish Music</h3>
-                            <p>
-                                Not a common blend but progressive rock makes me appreciate skillful artists while I feel <em
-                                    >deep</em
-                                > emotions through Turkish music.
-                            </p>
-                        </li>
-                        <li>
-                            <h3>Creative Programming</h3>
-                            <p>Really, I love her, too.</p>
-                        </li>
-                        <li>
-                            <h3>Maths &amp; Computer Graphics</h3>
-                            <p>You wouldn't believe but I love him, as well.</p>
-                        </li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h2>And here are my posts</h2>
-
                     <ol>
                         {
                             articles
@@ -69,14 +46,119 @@ const articles = Object.values(import.meta.glob("../articles/content/*.astro", {
                         }
                     </ol>
                 </section>
-
-                <section>
-                    <h2>Contact</h2>
-                    <p>Well, here is my business card. Have it!</p>
-                    <Spacer space={1} />
-                    <BusinessCard />
-                </section>
             </div>
         </article>
     </main>
 </Layout>
+
+<style>
+    .links {
+        display: flex;
+        gap: 0.5em;
+
+        font-size: 1.2rem;
+    }
+
+    article {
+        width: 100%;
+        max-width: 850px;
+        padding-inline: 3rem;
+        margin-inline: auto;
+        margin-top: 14rem;
+        display: grid;
+
+        grid-template-columns: [main-start] 1fr [main-end sidebar-start] 100px [sidebar-end];
+        font-size: 1.2em;
+        line-height: 1.35;
+
+        @media (max-width: 960px) {
+            grid-template-columns: [main-start] 1fr [main-end];
+        }
+
+        @media (max-width: 640px) {
+            font-size: 1em;
+            margin-top: 4rem;
+            padding-inline: 2rem;
+        }
+    }
+
+    article > * {
+        grid-column: main;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    article > header {
+        margin-bottom: 2rem;
+        max-width: 100%;
+    }
+
+    article > header h1 {
+        font-size: calc(min(230%, 8vw));
+        letter-spacing: -0.05ch;
+        font-weight: 400;
+        font-style: normal;
+        line-height: 1.15;
+        font-family: "Computer Modern Serif", Georgia, "Times New Roman", Times, serif;
+        margin-bottom: 1rem;
+    }
+
+    article > header p {
+        margin-top: 2em;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+    }
+
+    article > header h1 .line {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+        font-size: 1.1rem;
+        margin-bottom: 2em;
+
+        @media (max-width: 640px) {
+            font-size: 1rem;
+        }
+    }
+
+    section h2 {
+        font-size: inherit;
+    }
+
+    section ol {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75em;
+        margin-top: 0.3em;
+        list-style-type: decimal-leading-zero;
+        padding-left: 1.6em;
+    }
+
+    section ol li {
+        padding-left: 0.5em;
+        list-style-position: outside;
+    }
+
+    section ol a {
+        text-decoration: none;
+    }
+
+    section ol li::marker {
+        color: rgba(0, 0, 0, 0.5);
+    }
+
+    section ol li > h3 {
+        font-size: inherit;
+        font-weight: 600;
+    }
+
+    section ol > li > p {
+        font-size: 1rem;
+        margin-bottom: 0.5em;
+    }
+</style>
