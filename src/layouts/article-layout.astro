@@ -1,30 +1,30 @@
 ---
 interface Props {
-    title: string;
-    slug: string;
-    cover: string;
+    title: string
+    slug: string
+    cover: string
     coverAttribution?: {
-        name: string;
-        url: string;
-    };
-    subtitle?: string;
-    date?: Date;
+        name: string
+        url: string
+    }
+    subtitle?: string
+    date?: Date
 }
 
-import "@css/article.css";
-import Layout from "@layouts/layout.astro";
-import { Picture } from "astro:assets";
+import "@css/article.css"
+import Layout from "@layouts/layout.astro"
+import { Picture } from "astro:assets"
 
-const { title = "Article", cover, date, subtitle, coverAttribution } = Astro.props;
+const { title = "Article", cover, date, subtitle, coverAttribution } = Astro.props
 
 const image = await (async () => {
-    const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}");
-    const coverEntry = Object.entries(coverImages).find(([path]) => path.endsWith(`/${cover}`));
+    const coverImages = import.meta.glob<{ default: ImageMetadata }>("../articles/cover/*.{jpg,jpeg,png,webp,avif}")
+    const coverEntry = Object.entries(coverImages).find(([path]) => path.endsWith(`/${cover}`))
 
-    if (!coverEntry) throw new Error(`Article Layout Error: No cover image named "${cover}" found.`);
+    if (!coverEntry) throw new Error(`Article Layout Error: No cover image named "${cover}" found.`)
 
-    return (await coverEntry[1]()).default;
-})();
+    return (await coverEntry[1]()).default
+})()
 ---
 
 <Layout>
@@ -35,14 +35,22 @@ const image = await (async () => {
             integrity="sha384-WsHMgfkABRyG494OmuiNmkAOk8nhO1qE+Y6wns6v+EoNoTNxrWxYpl5ZYWFOLPCM"
             crossorigin="anonymous"
         />
+
         <title>{title}</title>
+
+        <script>
+            const backButton = document.querySelector("#back-button")
+
+            if (window.history.length > 1) backButton?.classList.remove("hidden")
+            else backButton?.addEventListener("click", () => window.history.back())
+        </script>
     </Fragment>
 
     <main>
         <header>
             <div class="links">
-                <button onclick="history.back()" class="back adaptive-back"> &larr; Back </button>
-                <a href="/" class="back adaptive-back"> Can Durmus </a>
+                <button class="back hidden" id="back-button"> &larr; Back </button>
+                <a href="/" class="back"> Can Durmus </a>
             </div>
 
             <Picture src={image!} alt={title} class="cover" loading="eager" />
@@ -96,6 +104,7 @@ const image = await (async () => {
             flex-direction: column;
             justify-content: space-between;
             border-right: 1px solid rgb(var(--accent-color));
+            z-index: 4;
 
             @media screen and (max-width: 1024px) {
                 width: 100%;
@@ -119,9 +128,9 @@ const image = await (async () => {
                 gap: 1rem;
 
                 .back {
-                    background: var(--background-color);
+                    background: color-mix(in srgb, var(--background-color) 95%, rgb(var(--accent-color)) 5%);
                     color: rgb(var(--accent-color));
-                    border: none;
+                    border: 1px solid rgb(var(--accent-color));
                     padding: 0;
                     text-decoration: underline;
                     cursor: pointer;
